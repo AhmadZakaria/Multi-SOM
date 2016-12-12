@@ -25,3 +25,11 @@ and for the task task
 ```sh
 gnuplot> load "plotSOM2.gnuplot"
 ```
+## examples
+### M-SOM 1
+
+![alt tag](./build/som.png)
+
+### M-SOM 2
+
+![alt tag](./build/som2.png)
