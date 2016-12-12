@@ -15,7 +15,8 @@ class MultiSOM {
     int epoch_max;
     float eta_0;
     float eta_final;
-    float s = 3; // size of gaussian of h
+    float s_0 = 4.0f; // size of gaussian of h
+    float s = 4.0f; // size of gaussian of h
     float s2inv = 1.0f / (s * s); // 1/s^2 (to be used efficiently)
 
     std::vector<std::shared_ptr< SOM<G_DIM, X_DIM>> > soms;
@@ -65,7 +66,7 @@ class MultiSOM {
         if (file2.is_open()) {
             for (int som = 0; som < soms.size(); ++som) {
                 MatrixXd c = soms[som]->get_centers();
-                file2<<c<<"\n";
+                file2 << c << "\n";
             }
         }
         file2.close();
@@ -85,7 +86,7 @@ class MultiSOM {
 
 
     void timestep() {
-        set_gaussian_size(s * 0.999);
+        update_s2inv();
         epoch++;
         std::cerr << "epoch " << epoch << ": s: " << s << std::endl;
     }
@@ -93,6 +94,12 @@ class MultiSOM {
         s = _s;
         s2inv = 1.0f / (s * s);
     }
+    void update_s2inv() {
+        s = s_0 * std::pow((0.1f / s_0), ((float)epoch / (float)epoch_max));
+        s2inv = 1.0f / (s * s);
+
+    }
+
     float eta() { // learning rate as a function of time
         return eta_0 * std::pow((eta_final / eta_0), ((float)epoch / (float)epoch_max));
     }

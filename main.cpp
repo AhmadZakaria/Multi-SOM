@@ -130,7 +130,7 @@ void test2() {
     double begin = helper::get_wall_time();
     double begin_cpu = helper::get_cpu_time();
 
-    msom.train(all_train, 1, 0.1, 10);
+    msom.train(all_train, 1, 0.5, 5);
 
     double end = helper::get_wall_time();
     double end_cpu = helper::get_cpu_time();
@@ -143,6 +143,6 @@ void test2() {
 }
 
 int main() {
-    test2();
+    test1();
 }
 
