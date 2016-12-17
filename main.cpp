@@ -142,6 +142,30 @@ void test2() {
     msom.output_SOMS();
 }
 
+void test3()
+{
+
+    ROFL roflNetwork(2, 10);
+
+	double traininExamples[100][10] = { {0,0},{0,1} };
+
+	std::ifstream roflFile("RoflFile.txt");
+	std::string line;
+	int count = 0;
+	while (std::getline(roflFile, line))
+	{
+		std::istringstream iss(line);
+
+		for (int dimension = 0; dimension<10; dimension++)
+		{
+			iss >> traininExamples[count][dimension];
+		}
+	}
+
+
+	roflNetwork.Train(traininExamples, 2);
+}
+
 int main() {
     test1();
 }
