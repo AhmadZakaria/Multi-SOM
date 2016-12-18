@@ -9,7 +9,7 @@
 const int NEURONS = 100;
 const int DIMENSIONS = 10;
 const int EXPAMPLES = 100;
-const double INITSIGMA = 20;
+const double INITSIGMA = 1;
 
 class ROFL {
 private:
@@ -106,9 +106,9 @@ public:
 			double tempSum = 0;
 			for(int dimension = 0; dimension < CountDimensions;dimension++)
 			{
-				tempSum = pow(TrainingExamples[pattern][dimension] - Centers[neuron][dimension],2);
+				tempSum += pow(TrainingExamples[pattern][dimension] - Centers[neuron][dimension],2);
 			}
-			if(tempSum < pow(radius,2))
+			if(sqrt(tempSum) < radius)
 			{
 				acceptingNeurons.push_back(neuron);
 			}
